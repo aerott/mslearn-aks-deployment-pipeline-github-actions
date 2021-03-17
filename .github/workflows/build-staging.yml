@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: azure/docker-login@v1
         with:
-          login-server: ${{ secrets.ACR_NAME }}
+          login-server: ${{ secrets.ACR_REPO }}
           username: ${{ secrets.ACR_LOGIN }}
           password: ${{ secrets.ACR_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.ACR_NAME }}/contoso-website:latest
-          docker push ${{ secrets.ACR_NAME }}/contoso-website:latest
+          docker build . -t ${{ secrets.ACR_REPO }}/contoso-website:latest
+          docker push ${{ secrets.ACR_REPO }}/contoso-website:latest
