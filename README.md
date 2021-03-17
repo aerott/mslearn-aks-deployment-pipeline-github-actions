@@ -1,3 +1,4 @@
+# [my_clone]
 ---
 page_type: sample
 languages:
