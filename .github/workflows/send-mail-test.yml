@@ -22,11 +22,11 @@ jobs:
           # Literal body:
           body: Build job of ${{github.repository}} completed successfully!
 
-         to: ${{secrets.EMAIL_NOTIFY_TO}}
-         from: ${{secrets.EMAIL_NOTIFY_FROM}}
+          to: ${{secrets.EMAIL_NOTIFY_TO}}
+          from: ${{secrets.EMAIL_NOTIFY_FROM}}
 
-         # Optional unsigned/invalid certificates allowance:
-         ignore_cert: true
-         # Optional content type (defaults to text/plain):
-         content_type: text/html
-         # Optional converting Markdown to HTML (set content_type to text/html too):
+          # Optional unsigned/invalid certificates allowance:
+          ignore_cert: true
+          # Optional content type (defaults to text/plain):
+          content_type: text/html
+          # Optional converting Markdown to HTML (set content_type to text/html too):
