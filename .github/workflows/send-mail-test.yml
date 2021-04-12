@@ -1,0 +1,32 @@
+  
+name: Notification via email
+
+on:
+  workflow_dispatch
+
+jobs:
+  send_notification:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.office365.com
+          server_port: 587
+          username: ${{secrets.EMAIL_NOTIFY_USERNAME}}
+          password: ${{secrets.EMAIL_NOTIFY_PASSWORD}}
+          subject: Github Actions job result
+          # Literal body:
+          body: Build job of ${{github.repository}} completed successfully!
+
+         to: ${{secrets.EMAIL_NOTIFY_TO}}
+         from: ${{secrets.EMAIL_NOTIFY_FROM}}
+
+         # Optional unsigned/invalid certificates allowance:
+         ignore_cert: true
+         # Optional content type (defaults to text/plain):
+         content_type: text/html
+         # Optional converting Markdown to HTML (set content_type to text/html too):
