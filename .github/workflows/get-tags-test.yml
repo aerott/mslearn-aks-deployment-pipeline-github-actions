@@ -5,7 +5,8 @@ on:
   workflow_dispatch
 
 jobs:
-  runs-on: ubuntu-20.04
+  get_tags:
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2.2.0
