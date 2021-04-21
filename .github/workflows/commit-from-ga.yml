@@ -12,10 +12,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Set env
-        run: echo "RAND=$(echo $RANDOM | cut -c 1-6)"
+        run: echo "RAND=$(echo $RANDOM | cut -c 1-7)"
       - name: Create local changes
         run: |
-          mkdir -p asdf$RAND
+          touch asdf$RAND
       
       - name: Commit changes
         uses: EndBug/add-and-commit@v7
