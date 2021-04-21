@@ -1,0 +1,26 @@
+  
+name: Commit from Github Action
+
+on:
+  workflow_dispatch
+
+jobs:
+  get_tags:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RAND=$(echo $RANDOM | cut -c 1-6)"
+      - name: Create local changes
+        run: |
+          mkdir -p asdf$RAND
+      
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: Your Name
+          author_email: mail@example.com
+          message: 'Your commit message'
+          add: $RAND
