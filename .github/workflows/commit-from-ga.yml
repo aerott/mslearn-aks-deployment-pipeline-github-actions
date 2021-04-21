@@ -5,7 +5,7 @@ on:
   workflow_dispatch
 
 jobs:
-  get_tags:
+  commit_from_ga:
     runs-on: ubuntu-20.04
 
     steps:
@@ -23,4 +23,4 @@ jobs:
           author_name: Your Name
           author_email: mail@example.com
           message: 'Your commit message'
-          add: $RAND
+          add: asdf$RAND
