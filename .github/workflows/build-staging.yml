@@ -2,8 +2,11 @@ name: Build and push the latest build to staging
 
 on:
   push:
-    branches: [ main ]
-
+    branches: 
+      [ main ]
+    paths-ignore:
+      - '.github/workflows/*yml'
+      
 jobs:
   build_push_image:
     runs-on: ubuntu-latest
