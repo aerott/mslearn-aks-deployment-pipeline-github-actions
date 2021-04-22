@@ -15,13 +15,17 @@ jobs:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - name: Set env
       run: echo RAND=$( echo "asdf"$RANDOM ) >> $GITHUB_ENV
-    - name: Create local changes
+    #- name: Create local changes
+    #  run: |
+    #    touch $RAND
+    - name: Set Helm Chart versions
       run: |
-        touch $RAND
+        sed -i "s/^version:.*$/version: 0.1.0/" kubernetes/contoso-website/Chart.yaml
+        sed -i "s/^appVersion:.*$/appVersion: 0.2.2/" kubernetes/contoso-website/Chart.yaml
     - name: Commit files
       run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
+        git config --local user.email "adamerot[at]hotmail.com"
+        git config --local user.name "aerott"
         git add .
         git commit -m "Add changes" -a
     - name: Push changes
