@@ -11,6 +11,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    
+    outputs:
+      tag_output: ${{ steps.prep.outputs.tags }}
 
     steps:
       - uses: actions/checkout@v2
@@ -33,6 +36,6 @@ jobs:
 
       - name: Test variable from other job
         run: |
-          echo ${{needs.build.outputs.tags}}
+          echo ${{needs.build.outputs.tag_output}}
       
       
