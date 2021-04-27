@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     
     outputs:
-      tag_output: ${{ steps.prep.outputs.tags }}
+      image_tag: ${{ steps.prep.outputs.tags }}
 
     steps:
       - uses: actions/checkout@v2
@@ -36,6 +36,6 @@ jobs:
 
       - name: Test variable from other job
         run: |
-          echo ${{needs.build.outputs.tag_output}}
+          echo ${{needs.build.outputs.image_tag}}
       
       
