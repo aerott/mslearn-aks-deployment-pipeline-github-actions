@@ -1,0 +1,17 @@
+name: Release actions
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        run: |
+          echo tag_name: ${{ github.ref }}
+          echo release_name: ${{ github.ref }}
