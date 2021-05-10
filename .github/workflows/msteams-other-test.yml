@@ -21,4 +21,4 @@ jobs:
         uses: rfuehrer/actions.webhook-to-ms-teams@1.0
         with:
           webhook: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/1dddcce1c94a49c3afc3a9697221b35f/7a8908b8-d686-4b88-88fd-8fa991aeec38
-          message: '<h2>${{github.workflow}} has been finished successfully! &#x1F6A2​​ &#x2705;</h2><br>Repository: <b><a href=${{github.event.repository.html_url}}>${{github.repository}}</a></b><br>Last commit: <a href="${{github.event.repository.html_url}}/commit/${{github.sha}}">${{github.sha}}</a> by <b>${{github.event.sender.login}}</b>'
+          message: '<h1>${{github.workflow}} has been finished successfully! &#x1F60A; &#x1F6A2; &#x2705;</h1><br>Repository: <b><a href=${{github.event.repository.html_url}}>${{github.repository}}</a></b><br>Last commit: <a href="${{github.event.repository.html_url}}/commit/${{github.sha}}">${{github.sha}}</a> by <b>${{github.event.sender.login}}</b><br>'
