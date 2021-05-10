@@ -1,0 +1,20 @@
+  
+name: Notification to MS Teams (other)
+
+on:
+  workflow_dispatch
+
+jobs:
+  send_notification:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      # this is the new step using the ms-teams-notification action
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/1dddcce1c94a49c3afc3a9697221b35f/7a8908b8-d686-4b88-88fd-8fa991aeec38
+          overwrite: "{title: `Overwrote title in ${workflow_link}`}"
