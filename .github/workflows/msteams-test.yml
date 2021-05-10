@@ -17,6 +17,6 @@ jobs:
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: &#x1F6A2 . &#x2705; Greeting from Github Action! &#x1F60A
+          notification-summary: Emojify! &#x1F6A2​​ &#x2705;
           notification-color: 28a745
           timezone: Europe/Warsaw
