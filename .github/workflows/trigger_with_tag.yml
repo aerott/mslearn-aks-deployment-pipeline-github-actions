@@ -19,7 +19,9 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: |
+          echo "$GITHUB_CONTEXT"
+          echo "${GITHUB_REF##*/}"
         
       - run: |
           echo "Log level: ${{ github.event.inputs.logLevel }}"
