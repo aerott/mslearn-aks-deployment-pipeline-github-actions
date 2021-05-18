@@ -4,17 +4,72 @@ name: Manual triggers with workflow_dispatch
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      confirm:
+        description: 'Insert branch name'     
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
 
+        
 jobs:
-  printInputs:
+  init_job:
     runs-on: ubuntu-20.04
+    outputs:
+      choosed_branch: ${{ steps.setvars.outputs.choosed_branch }}
+      confirm: ${{ steps.setvars.outputs.confirm }}
+      
     steps:
-    - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}" 
+      - name: Set variables
+        id: setvars
+        run: |
+          BRANCH=${GITHUB_REF##*/}
+          if [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          then
+            echo "1"
+            echo "::set-output name=confirm::val_develop"
+            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"   
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
+          then
+            echo "::set-output name=confirm::val_main"              
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
+          then
+            echo "::set-output name=confirm::val_stage"
+          else
+            echo "::set-output name=confirm::fck_it"
+          fi
+          echo "bbb: $BRANCH"
+          echo "aaa: ${{ github.event.inputs.confirm }}"
+          
+  main_job:
+    runs-on: ubuntu-20.04
+    needs: init_job
+    
+    steps:
+      - name: Choosed Branch & Confirm
+        run: |
+          echo "Confirm: ${{ github.event.inputs.confirm }}"
+          echo "Choosed branch: ${GITHUB_REF##*/}"
+          
+      - name: Print
+        run: | 
+          echo "choosed_branch=${{ needs.init_job.outputs.choosed_branch }}"
+          echo "confirm=${{ needs.init_job.outputs.confirm }}" 
+      
+      #- name: Run condition 1
+      #  if: github.event.inputs.tags == 'develop'
+      #  run: |
+      #    echo "You've been wrote - develop"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
+        
+      #- name: Run condition 2
+      #  if: github.event.inputs.tags == 'main'
+      #  run: |
+      #    echo "You've been wrote - develop"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
+        
+      #- name: Run condition 2
+      #  if: github.event.inputs.tags != 'develop' && github.event.inputs.tags != 'develop'
+      #  run: |
+      #    echo "You've been wrote - ?"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
