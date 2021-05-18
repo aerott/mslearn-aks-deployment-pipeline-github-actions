@@ -4,11 +4,13 @@ name: Manual triggers with workflow_dispatch
 on: 
   workflow_dispatch:
     inputs:
-      tags:
+      logLevel:
+        description: 'Log level'     
         required: true
-        description: 'Input branch name'
-env:
-  test: github.event.inputs.tag
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'
+        
 jobs:
   init_job:
     runs-on: ubuntu-20.04
@@ -20,12 +22,11 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{ env.test }}" == "develop" ]]; then
+          if [[ "${{ github.event.inputs.tags }}" == "develop" ]]; then
             echo "::set-output name=val1::val_develop"
           fi
-          
-          
-          
+          echo "aaa: ${{ github.event.inputs.tags }}"
+           
   main_job:
     runs-on: ubuntu-20.04
     needs: init_job
