@@ -20,17 +20,11 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ ${{ env.test }} == "develop" ]]; then
+          if [[ "${{ env.test }}" == "develop" ]]; then
             echo "::set-output name=val1::val_develop"
           fi
           
-          if [[ "${{github.event.inputs.tag}}" == "main" ]]; then
-            echo "::set-output name=val1::val_main"
-          fi
           
-          if [[ "${{github.event.inputs.tag}}" != "develop" || "${{github.event.inputs.tag}}" != "main" ]]; then
-            echo "::set-output name=val1::val_undefined"
-          fi
           
   main_job:
     runs-on: ubuntu-20.04
