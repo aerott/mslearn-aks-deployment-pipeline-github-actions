@@ -4,39 +4,62 @@ name: Manual triggers with workflow_dispatch
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
       tags:
-        description: 'Test scenario tags'  
+        required: true
+        description: 'Test scenario tags'
 
 jobs:
-  printInputs:
+  init_job:
     runs-on: ubuntu-20.04
+    outputs:
+      val1: ${{ steps.setvars.outputs.gcloud_project }}
+      val2: ${{ steps.setvars.outputs.phase }}
+      
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.event.inputs.tag}}" == "develop" ]]; then
+            echo "::set-output name=val1::val_develop"
+          fi
+          
+          if [[ "${{github.event.inputs.tag}}" == "main" ]]; then
+            echo "::set-output name=val1::val_main"
+          fi
+          
+          if [[ "${{github.event.inputs.tag}}" != "develop" || "${{github.event.inputs.tag}}" != "main" ]]; then
+            echo "::set-output name=val1::val_undefined"
+          fi
+          
+  main_job:
+    runs-on: ubuntu-20.04
+    needs: init_job
+    
     steps:
       - name: Log level & Tags
         run: |
-          echo "Log level: ${{ github.event.inputs.logLevel }}"
           echo "Tags: ${{ github.event.inputs.tags }}" 
           
-      - name: Run condition 1
-        if: github.event.inputs.tags == 'develop'
-        run: |
-          echo "You've been wrote - develop"
-          echo "ref is equal ${GITHUB_REF##*/}"
-          echo "$GITHUB_CONTEXT"
+      - name: Print
+        run: echo "val1=${{needs.init_job.outputs.val1}}"   
+      
+      #- name: Run condition 1
+      #  if: github.event.inputs.tags == 'develop'
+      #  run: |
+      #    echo "You've been wrote - develop"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
         
-      - name: Run condition 2
-        if: github.event.inputs.tags == 'main'
-        run: |
-          echo "You've been wrote - develop"
-          echo "ref is equal ${GITHUB_REF##*/}"
-          echo "$GITHUB_CONTEXT"
+      #- name: Run condition 2
+      #  if: github.event.inputs.tags == 'main'
+      #  run: |
+      #    echo "You've been wrote - develop"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
         
-      - name: Run condition 2
-        if: github.event.inputs.tags != 'develop' && github.event.inputs.tags != 'develop'
-        run: |
-          echo "You've been wrote - ?"
-          echo "ref is equal ${GITHUB_REF##*/}"
-          echo "$GITHUB_CONTEXT"
+      #- name: Run condition 2
+      #  if: github.event.inputs.tags != 'develop' && github.event.inputs.tags != 'develop'
+      #  run: |
+      #    echo "You've been wrote - ?"
+      #    echo "ref is equal ${GITHUB_REF##*/}"
+      #    echo "$GITHUB_CONTEXT"
