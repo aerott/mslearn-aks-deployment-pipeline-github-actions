@@ -1,0 +1,34 @@
+
+name: Substraction
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch
+
+env:
+  # build stage
+  DEFAULT_IMAGE_TAG:    test
+  APPSETTINGS_PATH:     appsettings.json
+  CONNECTION_STRING:    "this-is-connstr"
+  
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Variable substitution
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: ${{ env.APPSETTINGS_PATH }}
+        env:
+          ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
+          #PredefinedTags.Tags[0].value
+          
+      - name: Prepare
+        id: prep
+        run: |
+          cat appsettings.json
+
+
