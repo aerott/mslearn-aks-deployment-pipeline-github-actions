@@ -19,7 +19,7 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ github.event.inputs.tag == "develop" ]]; then
+          if [[ ${{github.event.inputs.tag}} == "develop" ]]; then
             echo "::set-output name=val1::val_develop"
           fi
           
