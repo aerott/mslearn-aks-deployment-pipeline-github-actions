@@ -20,7 +20,7 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          echo BRANCH=${GITHUB_REF##*/}"   
+          echo BRANCH=${GITHUB_REF##*/}
           if [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
