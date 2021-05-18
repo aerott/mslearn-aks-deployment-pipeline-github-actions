@@ -20,7 +20,7 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          echo BRANCH=${GITHUB_REF##*/}
+          BRANCH=${GITHUB_REF##*/}
           if [[ $BRANCH == "develop" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
@@ -35,7 +35,7 @@ jobs:
           else
             echo "::set-output name=confirm::fck_it"
           fi
-          
+          echo "bbb: $BRANCH"
           echo "aaa: ${{ github.event.inputs.confirm }}"
           
   main_job:
