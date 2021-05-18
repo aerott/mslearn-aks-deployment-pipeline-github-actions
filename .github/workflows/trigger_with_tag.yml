@@ -4,10 +4,10 @@ name: Manual triggers with workflow_dispatch
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
+      confirm1:
         description: 'Insert branch name'     
         required: true
-      tags:
+      confirm2:
         description: 'Reinsert branch name'
         required: true
         
@@ -22,21 +22,23 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{ github.event.inputs.tags }}" == "develop" ]]; then
+          if [[ "${{ github.event.inputs.confirm1 }}" == "develop" ]]; 
+          then
             echo "::set-output name=val1::val_develop"
             echo "::set-output name=val2::val_develop"
-          fi
-          
-          if [[ "${{ github.event.inputs.tag }}" == "main" ]]; then
+          elif    
+          if [[ "${{ github.event.inputs.confirm1 }}" == "main" ]]; 
+          then
             echo "::set-output name=val1::val_main"
-          fi
-          
-          if [[ "${{ github.event.inputs.tag }}" != "develop" || "${{ github.event.inputs.tag }}" != "main" ]]; then
+          elif      
+          if [[ "${{ github.event.inputs.confirm1 }}" != "develop" || "${{ github.event.inputs.confirm1 }}" != "main" ]]; 
+          then
             echo "::set-output name=val1::val_undefined"
           fi
           
-          echo "aaa: ${{ github.event.inputs.tags }}"
-           
+          echo "aaa: ${{ github.event.inputs.confirm1}}"
+          echo "bbbb: ${{ github.event.inputs.confirm2 }}"
+          
   main_job:
     runs-on: ubuntu-20.04
     needs: init_job
