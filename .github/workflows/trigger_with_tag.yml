@@ -20,11 +20,12 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          echo BRANCH=${GITHUB_REF##*/}"   
+          if [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
             echo "::set-output name=confirm::val_develop"
-            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"    
+            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"   
           elif [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
           then
             echo "::set-output name=confirm::val_main"              
