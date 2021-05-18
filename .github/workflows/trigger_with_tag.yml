@@ -21,6 +21,12 @@ jobs:
         id: setvars
         run: |
           BRANCH=${GITHUB_REF##*/}
+          
+          if [[ $BRANCH != "${{ github.event.inputs.confirm }}" ]];
+          then
+            exit 1
+          fi
+          
           if [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
