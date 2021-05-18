@@ -6,14 +6,14 @@ on:
     inputs:
       tags:
         required: true
-        description: 'Test scenario tags'
+        description: 'Input branch name'
 
 jobs:
   init_job:
     runs-on: ubuntu-20.04
     outputs:
-      val1: ${{ steps.setvars.outputs.gcloud_project }}
-      val2: ${{ steps.setvars.outputs.phase }}
+      val1: ${{ steps.setvars.outputs.val1 }}
+      val2: ${{ steps.setvars.outputs.val2 }}
       
     steps:
       - name: Set variables
