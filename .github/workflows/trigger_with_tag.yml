@@ -26,10 +26,10 @@ jobs:
             echo "1"
             echo "::set-output name=confirm::val_develop"
             echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"   
-          elif [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
+          elif [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
           then
             echo "::set-output name=confirm::val_main"              
-          elif [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
+          elif [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
           then
             echo "::set-output name=confirm::val_stage"
           else
@@ -43,9 +43,10 @@ jobs:
     needs: init_job
     
     steps:
-      - name: Log level & Tags
+      - name: Choosed Branch & Confirm
         run: |
-          echo "Tags: ${{ github.event.inputs.tags }}" 
+          echo "Confirm: ${{ github.event.inputs.confirm }}"
+          echo "Choosed branch: ${GITHUB_REF##*/}"
           
       - name: Print
         run: | 
