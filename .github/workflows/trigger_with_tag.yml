@@ -4,12 +4,10 @@ name: Manual triggers with workflow_dispatch
 on: 
   workflow_dispatch:
     inputs:
-      confirm1:
+      confirm:
         description: 'Insert branch name'     
         required: true
-      confirm2:
-        description: 'Reinsert branch name'
-        required: true
+
         
 jobs:
   init_job:
@@ -22,22 +20,19 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{ github.event.inputs.confirm1 }}" == "develop" ]]; 
+          if [[ "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "::set-output name=val1::val_develop"
-            echo "::set-output name=val2::val_develop"
-          elif    
-          if [[ "${{ github.event.inputs.confirm1 }}" == "main" ]]; 
+            echo "::set-output name=val2::${GITHUB_REF##*/}"    
+          elif [[ "${{ github.event.inputs.confirm }}" == "main" ]]; 
           then
-            echo "::set-output name=val1::val_main"
-          elif      
-          if [[ "${{ github.event.inputs.confirm1 }}" != "develop" || "${{ github.event.inputs.confirm1 }}" != "main" ]]; 
+            echo "::set-output name=val1::val_main"              
+          elif [[ "${{ github.event.inputs.confirm }}" != "develop" || "${{ github.event.inputs.confirm }}" != "main" ]]; 
           then
             echo "::set-output name=val1::val_undefined"
           fi
           
-          echo "aaa: ${{ github.event.inputs.confirm1}}"
-          echo "bbbb: ${{ github.event.inputs.confirm2 }}"
+          echo "aaa: ${{ github.event.inputs.confirm}}"
           
   main_job:
     runs-on: ubuntu-20.04
