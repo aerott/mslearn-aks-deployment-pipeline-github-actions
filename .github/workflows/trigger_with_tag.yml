@@ -21,15 +21,15 @@ jobs:
         id: setvars
         run: |
           BRANCH=${GITHUB_REF##*/}
-          if [[ $BRANCH == "develop" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          if [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
             echo "::set-output name=confirm::val_develop"
             echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"   
-          elif [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
           then
             echo "::set-output name=confirm::val_main"              
-          elif [[ "${{ github.event.inputs.confirm }}" == "$BRANCH" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
           then
             echo "::set-output name=confirm::val_stage"
           else
