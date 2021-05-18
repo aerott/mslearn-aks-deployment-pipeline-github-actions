@@ -24,7 +24,7 @@ jobs:
           files: ${{ env.APPSETTINGS_PATH }}
         env:
           ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
-          #PredefinedTags.Tags[0].value
+          PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
           
       - name: Prepare
         id: prep
