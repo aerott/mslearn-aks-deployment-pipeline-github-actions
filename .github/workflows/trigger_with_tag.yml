@@ -25,6 +25,15 @@ jobs:
           if [[ "${{ github.event.inputs.tags }}" == "develop" ]]; then
             echo "::set-output name=val1::val_develop"
           fi
+          
+          if [[ "${{ github.event.inputs.tag }}" == "main" ]]; then
+            echo "::set-output name=val1::val_main"
+          fi
+          
+          if [[ "${{ github.event.inputs.tag }}" != "develop" || "${{ github.event.inputs.tag }}" != "main" ]]; then
+            echo "::set-output name=val1::val_undefined"
+          fi
+          
           echo "aaa: ${{ github.event.inputs.tags }}"
            
   main_job:
