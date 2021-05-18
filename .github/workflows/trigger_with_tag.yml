@@ -15,14 +15,28 @@ jobs:
   printInputs:
     runs-on: ubuntu-20.04
     steps:
-    
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+      - name: Log level & Tags
         run: |
-          echo "$GITHUB_CONTEXT"
-          echo "${GITHUB_REF##*/}"
-        
-      - run: |
           echo "Log level: ${{ github.event.inputs.logLevel }}"
           echo "Tags: ${{ github.event.inputs.tags }}" 
+          
+      - name: Run condition 1
+        if: github.event.inputs.tags == "develop"
+        run: |
+          echo "You've been wrote - develop"
+          echo "ref is equal ${GITHUB_REF##*/}"
+          echo "$GITHUB_CONTEXT"
+        
+      - name: Run condition 2
+        if: github.event.inputs.tags == "main"
+        run: |
+          echo "You've been wrote - develop"
+          echo "ref is equal ${GITHUB_REF##*/}"
+          echo "$GITHUB_CONTEXT"
+        
+      - name: Run condition 2
+        if: github.event.inputs.tags != "develop" && github.event.inputs.tags != "develop"
+        run: |
+          echo "You've been wrote - ?"
+          echo "ref is equal ${GITHUB_REF##*/}"
+          echo "$GITHUB_CONTEXT"
