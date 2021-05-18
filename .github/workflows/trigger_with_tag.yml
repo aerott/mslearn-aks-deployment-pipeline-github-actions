@@ -35,6 +35,7 @@ jobs:
             echo "::set-output name=confirm::val_stage"
           else
             echo "::set-output name=confirm::fck_it"
+            exit 1
           fi
           echo "bbb: $BRANCH"
           echo "aaa: ${{ github.event.inputs.confirm }}"
