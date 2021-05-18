@@ -13,8 +13,8 @@ jobs:
   init_job:
     runs-on: ubuntu-20.04
     outputs:
-      val1: ${{ steps.setvars.outputs.choosed_branch }}
-      val2: ${{ steps.setvars.outputs.confirm }}
+      choosed_branch: ${{ steps.setvars.outputs.choosed_branch }}
+      confirm: ${{ steps.setvars.outputs.confirm }}
       
     steps:
       - name: Set variables
@@ -50,8 +50,8 @@ jobs:
           
       - name: Print
         run: | 
-          echo "choosed_branch=${{needs.init_job.outputs.choosed_branch}}"
-          echo "confirm=${{needs.init_job.outputs.confirm}}" 
+          echo "choosed_branch=${{ needs.init_job.outputs.choosed_branch }}"
+          echo "confirm=${{ needs.init_job.outputs.confirm }}" 
       
       #- name: Run condition 1
       #  if: github.event.inputs.tags == 'develop'
