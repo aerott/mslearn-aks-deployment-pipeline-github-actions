@@ -21,7 +21,7 @@ jobs:
         id: setvars
         run: |
           echo BRANCH=${GITHUB_REF##*/}
-          if [[ "${{ github.event.inputs.confirm }}" == $BRANCH && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          if [[ "$BRANCH" == "develop" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
             echo "1"
             echo "::set-output name=confirm::val_develop"
