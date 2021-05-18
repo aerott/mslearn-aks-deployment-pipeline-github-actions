@@ -5,11 +5,11 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: 'Insert branch name'     
         required: true
-        default: 'warning'
       tags:
-        description: 'Test scenario tags'
+        description: 'Reinsert branch name'
+        required: true
         
 jobs:
   init_job:
@@ -24,6 +24,7 @@ jobs:
         run: |
           if [[ "${{ github.event.inputs.tags }}" == "develop" ]]; then
             echo "::set-output name=val1::val_develop"
+            echo "::set-output name=val2::val_develop"
           fi
           
           if [[ "${{ github.event.inputs.tag }}" == "main" ]]; then
@@ -46,7 +47,9 @@ jobs:
           echo "Tags: ${{ github.event.inputs.tags }}" 
           
       - name: Print
-        run: echo "val1=${{needs.init_job.outputs.val1}}"   
+        run: | 
+          echo "val1=${{needs.init_job.outputs.val1}}"
+          echo "val2=${{needs.init_job.outputs.val2}}" 
       
       #- name: Run condition 1
       #  if: github.event.inputs.tags == 'develop'
