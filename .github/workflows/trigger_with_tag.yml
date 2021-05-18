@@ -13,26 +13,29 @@ jobs:
   init_job:
     runs-on: ubuntu-20.04
     outputs:
-      val1: ${{ steps.setvars.outputs.val1 }}
-      val2: ${{ steps.setvars.outputs.val2 }}
+      val1: ${{ steps.setvars.outputs.choosed_branch }}
+      val2: ${{ steps.setvars.outputs.confirm }}
       
     steps:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          if [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
           then
-            echo "::set-output name=val1::val_develop"
-            echo "::set-output name=val2::${GITHUB_REF##*/}"    
-          elif [[ "${{ github.event.inputs.confirm }}" == "main" ]]; 
+            echo "1"
+            echo "::set-output name=confirm::val_develop"
+            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"    
+          elif [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
           then
-            echo "::set-output name=val1::val_main"              
-          elif [[ "${{ github.event.inputs.confirm }}" != "develop" || "${{ github.event.inputs.confirm }}" != "main" ]]; 
+            echo "::set-output name=confirm::val_main"              
+          elif [[ "${{ github.event.inputs.confirm }}" == "${GITHUB_REF##*/}" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
           then
-            echo "::set-output name=val1::val_undefined"
+            echo "::set-output name=confirm::val_stage"
+          else
+            echo "::set-output name=confirm::fck_it"
           fi
           
-          echo "aaa: ${{ github.event.inputs.confirm}}"
+          echo "aaa: ${{ github.event.inputs.confirm }}"
           
   main_job:
     runs-on: ubuntu-20.04
@@ -45,8 +48,8 @@ jobs:
           
       - name: Print
         run: | 
-          echo "val1=${{needs.init_job.outputs.val1}}"
-          echo "val2=${{needs.init_job.outputs.val2}}" 
+          echo "choosed_branch=${{needs.init_job.outputs.choosed_branch}}"
+          echo "confirm=${{needs.init_job.outputs.confirm}}" 
       
       #- name: Run condition 1
       #  if: github.event.inputs.tags == 'develop'
