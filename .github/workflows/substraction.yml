@@ -10,7 +10,7 @@ env:
   DEFAULT_IMAGE_TAG:    test
   APPSETTINGS_PATH:     appsettings.json
   CONNECTION_STRING:    "this-is-connstr"
-  SERILOG_DSN:           "this-is-serilog-dsn"
+  SERILOG_DSN:          "this-is-serilog-dsn"
   
 jobs:
   build:
@@ -26,7 +26,9 @@ jobs:
         env:
           ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
           PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
-          Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
+          Serilog.WriteTo.2.Args.Dns: ${{ env.SERILOG_DSN }}
+          # previous appsettings
+          #Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
           
       - name: Prepare
         id: prep
