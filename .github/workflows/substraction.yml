@@ -29,7 +29,8 @@ jobs:
           Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
           # previous appsettings
           #Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
-          IdentityServer.Clients.RedirectUris: asdf
+          #IdentityServer.Clients.RedirectUris: asdf
+          IdentityServer.Clients.0.RedirectUris: asdf
           
       - name: Prepare
         id: prep
