@@ -1,0 +1,18 @@
+name: manual run - github variable
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        run: |
+          echo github_var: ${{ github }}
+          echo tag_name: ${{ github.ref }}
+          echo tag_name number: ${GITHUB_REF##*/}
