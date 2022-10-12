@@ -12,7 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Release
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo github_var: ${{ toJson(github) }}
+          echo github_context: "$GITHUB_CONTEXT"
           echo tag_name: ${{ github.ref }}
           echo tag_name number: ${GITHUB_REF##*/}
