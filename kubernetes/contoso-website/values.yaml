@@ -13,5 +13,4 @@ readiness_probe:
 basic_auth:
   enabled: 
   
-wprowadzam_zmiane_na_stage:
-  a_ona_powinna_byc_na_main: sad_face
+
