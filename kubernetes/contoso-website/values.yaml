@@ -7,11 +7,11 @@ image:
 dns:
   name: <your-dns-zone-name>
 
-readiness_probe:
-  enabled:
-
 basic_auth:
   enabled: 
 
 zmiana_na_f1:
+  enabled:
+  
+zmiana_druga_na_f1:
   enabled:
