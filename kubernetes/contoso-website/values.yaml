@@ -2,6 +2,14 @@ image:
   repository: <acr-name>
   name: contoso-website
   tag: latest
+  version: 0.0.1
 
 dns:
   name: <your-dns-zone-name>
+
+readiness_probe:
+  enabled:
+
+basic_auth:
+  enabled: 
+  
