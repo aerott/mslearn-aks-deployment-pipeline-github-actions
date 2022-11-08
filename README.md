@@ -15,7 +15,7 @@ description: "Demo application for the 'Create a Deployment Pipeline with AKS an
 urlFragment: "aks-deployment-pipeline-github-actions-demo"
 ---
 
-# Official Microsoft Sample
+# Official Microsoft Sample | XYZ
 
 <!--
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
