@@ -11,4 +11,4 @@ readiness_probe:
   enabled:
 
 basic_auth:
-  enabled: 
+  enabled: true
