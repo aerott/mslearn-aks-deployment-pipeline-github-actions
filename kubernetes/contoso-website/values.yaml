@@ -8,7 +8,7 @@ dns:
   name: <your-dns-zone-name>
 
 readiness_probe:
-  enabled:
+  enabled: false
 
 basic_auth:
   enabled: true
