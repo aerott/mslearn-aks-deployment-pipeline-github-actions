@@ -25,7 +25,7 @@ jobs:
           files: ${{ env.APPSETTINGS_PATH }}
         env:
           ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
-          PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
+          #PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
           Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
           # previous appsettings
           #Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
