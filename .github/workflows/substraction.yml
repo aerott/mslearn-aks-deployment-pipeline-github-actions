@@ -22,7 +22,7 @@ jobs:
       - name: Variable substitution
         uses: admteam-shock-it/variable-substitution@beta-1
         with:
-          files: ${{ env.APPSETTINGS_PATH }}
+          files: appsettings.json
         env:
           ConnectionStrings.DefaultConnection: "asdf"
           #ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
