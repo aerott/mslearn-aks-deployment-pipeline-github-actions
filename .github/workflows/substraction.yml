@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Variable substitution
-        uses: admteam-shock-it/variable-substitution@beta-1 
+        uses: admteam-shock-it/variable-substitution@master 
         with:
           files: ${{ env.APPSETTINGS_PATH }}
         env:
