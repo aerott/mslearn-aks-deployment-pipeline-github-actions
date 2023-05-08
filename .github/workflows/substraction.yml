@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Variable substitution
-        uses: admteam-shock-it/variable-substitution@master 
+        uses: admteam-shock-it/variable-substitution@beta-2 
         with:
           files: ${{ env.APPSETTINGS_PATH }}
         env:
