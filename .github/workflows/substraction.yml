@@ -5,10 +5,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch
 
-#env:
+env:
   # build stage
   #DEFAULT_IMAGE_TAG:    test
-  #APPSETTINGS_PATH:     appsettings.json
+  APPSETTINGS_PATH:     appsettings.json
   #CONNECTION_STRING:    "this-is-connstr"
   #SERILOG_DSN:          "this-is-serilog-dsn"
   
@@ -20,9 +20,9 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Variable substitution
-        uses: admteam-shock-it/variable-substitution@beta-5
+        uses: admteam-shock-it/variable-substitution@beta-6
         with:
-          files: appsettings.json
+          files: ${{ env.APPSETTINGS_PATH }}
         env:
           ConnectionStrings.DefaultConnection: "asdf"
           ImageVersion: "asdf"
