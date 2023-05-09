@@ -30,7 +30,8 @@ jobs:
           Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
           # previous appsettings
           #Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
-          #IdentityServer.Clients.0.RedirectUris: '["url1","url2"]'
+          IdentityServer.Clients.0.RedirectUris: '["url1","url2"]'
+          This.Env: "not exists in appsettings.json"
           
       - name: Prepare
         id: prep
