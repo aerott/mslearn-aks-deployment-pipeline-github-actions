@@ -9,8 +9,8 @@ env:
   # build stage
   #DEFAULT_IMAGE_TAG:    test
   APPSETTINGS_PATH:     appsettings.json
-  #CONNECTION_STRING:    "this-is-connstr"
-  #SERILOG_DSN:          "this-is-serilog-dsn"
+  CONNECTION_STRING:    "this-is-connstr"
+  SERILOG_DSN:          "this-is-serilog-dsn"
   
 jobs:
   build:
@@ -24,11 +24,10 @@ jobs:
         with:
           files: ${{ env.APPSETTINGS_PATH }}
         env:
-          ConnectionStrings.DefaultConnection: "asdf"
-          ImageVersion: "asdf"
-          #ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
+          #ConnectionStrings.DefaultConnection: "asdf"
+          ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
           #PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
-          #Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
+          Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
           # previous appsettings
           #Serilog.WriteTo.1.Args.Dsn: ${{ env.SERILOG_DSN }}
           #IdentityServer.Clients.0.RedirectUris: '["url1","url2"]'
