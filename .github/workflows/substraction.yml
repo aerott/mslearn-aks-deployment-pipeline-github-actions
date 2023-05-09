@@ -25,6 +25,7 @@ jobs:
           files: appsettings.json
         env:
           ConnectionStrings.DefaultConnection: "asdf"
+          ImageVersion: "asdf"
           #ConnectionStrings.DefaultConnection:  ${{ env.CONNECTION_STRING }}
           #PredefinedTags.Tags.0.value: ${{ env.CONNECTION_STRING }}
           #Serilog.WriteTo.2.Args.Dsn: ${{ env.SERILOG_DSN }}
