@@ -5,3 +5,7 @@ image:
 
 dns:
   name: <your-dns-zone-name>
+  
+  
+some:
+  another:
