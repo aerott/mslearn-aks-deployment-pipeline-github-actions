@@ -16,4 +16,4 @@ jobs:
         run: |
           echo tag_name: ${{ github.ref }}
           echo tag_name number: ${GITHUB_REF##*/}
-          echo github: ${{ github }}
+          echo github: ${{ toJson(github) }}
