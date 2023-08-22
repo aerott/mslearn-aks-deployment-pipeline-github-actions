@@ -23,9 +23,9 @@ jobs:
         id: prep
         run: |
           chcp 65001 #set code page to utf-8
-          $dt = Get-Date -Format "yyyy-MM-dd-HHmmss"
+          $now = Get-Date -Format "yyyy-MM-dd-HHmm"
           echo ("choosed_branch=" + $env:GITHUB_REF.replace('refs/heads/', '')) >> $env:GITHUB_OUTPUT
-          echo ("dt=data " + $dt) >> $env:GITHUB_OUTPUT
+          echo ("dt=" + $now) >> $env:GITHUB_OUTPUT
 
           echo $env:GITHUB_OUTPUT
           echo $env:choosed_branch
