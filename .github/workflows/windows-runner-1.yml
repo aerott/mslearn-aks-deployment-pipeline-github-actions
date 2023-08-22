@@ -1,0 +1,28 @@
+
+name: Windows runner 1
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  # build
+  var1: xyz
+
+jobs:
+  build:
+    runs-on: windows-2019
+    
+    outputs:
+      choosed_branch: ${{ steps.prep.outputs.choosed_branch }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Prepare
+        id: prep
+        run: |
+          chcp 65001 #set code page to utf-8
+          echo ("choosed_branch=" + $env:GITHUB_REF.replace('refs/heads/', '')) >> $env:GITHUB_OUTPUT
+
+          echo $env:GITHUB_OUTPUT
+          echo $env:choosed_branch
