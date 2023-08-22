@@ -26,3 +26,7 @@ jobs:
 
           echo $env:GITHUB_OUTPUT
           echo $env:choosed_branch
+
+      - name: Printer
+        run: |
+          echo ${{ steps.prep.outputs.choosed_branch }}
