@@ -24,10 +24,11 @@ jobs:
         run: |
           chcp 65001 #set code page to utf-8
           echo ("choosed_branch=" + $env:GITHUB_REF.replace('refs/heads/', '')) >> $env:GITHUB_OUTPUT
-          echo "dt=$(date +'%Y-%m-%d_H%M')" >> $GITHUB_OUTPUT
+          echo "dt=$(date +'%Y-%m-%d_H%M')" >> $env::$GITHUB_OUTPUT
 
           echo $env:GITHUB_OUTPUT
           echo $env:choosed_branch
+          echo $env:dt
 
       - name: Printer
         run: |
