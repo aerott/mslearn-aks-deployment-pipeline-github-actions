@@ -9,7 +9,7 @@ on:
         type: choice
         description: 'Choose an environment'
         required: true
-        #default: ''
+        default: ''
         options:
         - Beta
         - Debug
