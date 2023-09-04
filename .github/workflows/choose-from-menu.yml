@@ -1,0 +1,30 @@
+
+name: Choose from menu
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      choose_environment:
+        type: choice
+        description: 'Choose an environment'
+        required: true
+        #default: ''
+        options:
+        - Beta
+        - Debug
+env:
+  # build stage
+  DEFAULT_IMAGE_TAG:    test
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: ECHO
+        run: echo "${{ github.event.inputs.choose_environment }}"
+        
+
