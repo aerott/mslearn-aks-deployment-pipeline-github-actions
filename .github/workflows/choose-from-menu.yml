@@ -9,10 +9,11 @@ on:
         type: choice
         description: 'Choose an environment'
         required: true
-        default: ''
         options:
-        - Beta
         - Debug
+        - Beta
+        - UAT
+        - Release
 env:
   # build stage
   DEFAULT_IMAGE_TAG:    test
