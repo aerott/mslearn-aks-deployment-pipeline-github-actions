@@ -18,10 +18,11 @@ jobs:
           echo "$GITHUB_CONTEXT"
           echo tag_name: ${{ github.ref }}
           echo tag_name number: ${GITHUB_REF##*/}
+          echo "Job URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-      - name: Send message to ms teams
-        uses: rfuehrer/actions.webhook-to-ms-teams@1.0
-        with:
-          webhook: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
-          #message: '<h1>&#x1F6A2;${{github.workflow}} has been finished successfully! &#x2705; &#x1F60A;</h1><br><b>Repository</b>: <a href=${{github.event.repository.html_url}}>${{github.repository}}</a><br>Last <b>commit</b>: <a href="${{github.event.repository.html_url}}/commit/${{github.sha}}">${{github.sha}}</a> by <b>${{github.event.sender.login}}</b><br>'
-          message: ${{github.event.repository.html_url}}<br>https://github.com/${{github.event.head_commit.author.username}}<br>${{github.event.head_commit.author.name}}<br>${{ github.event.compare }}<br>${{github.event.head_commit.message}}
+      #- name: Send message to ms teams
+      #  uses: rfuehrer/actions.webhook-to-ms-teams@1.0
+      #  with:
+      #    webhook: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
+      #    #message: '<h1>&#x1F6A2;${{github.workflow}} has been finished successfully! &#x2705; &#x1F60A;</h1><br><b>Repository</b>: <a href=${{github.event.repository.html_url}}>${{github.repository}}</a><br>Last <b>commit</b>: <a href="${{github.event.repository.html_url}}/commit/${{github.sha}}">${{github.sha}}</a> by <b>${{github.event.sender.login}}</b><br>'
+      #    message: ${{github.event.repository.html_url}}<br>https://github.com/${{github.event.head_commit.author.username}}<br>${{github.event.head_commit.author.name}}<br>${{ github.event.compare }}<br>${{github.event.head_commit.message}}
