@@ -10,7 +10,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
+      - name: Get Last Commit Changes
+        id: commit_changes
+        run: |
+          git fetch
+          LAST_COMMIT_HASH=$(git rev-parse HEAD)
+          COMMIT_CHANGES=$(git log -1 --pretty=format:"%s" $LAST_COMMIT_HASH)
+          COMMIT_LINK="https://github.com/${{ github.repository }}/commit/${LAST_COMMIT_HASH}"
+          echo "::set-output name=commit_changes::$COMMIT_CHANGES"
+          echo "::set-output name=commit_link::$COMMIT_LINK"
+
+      - name: Display Last Commit Changes
+        run: |
+          echo "Last commit changes: ${{ steps.commit_changes.outputs.commit_changes }}"
+          echo "View commit changes: ${{ steps.commit_changes.outputs.commit_link }}"
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
