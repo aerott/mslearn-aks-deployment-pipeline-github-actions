@@ -10,7 +10,7 @@ products:
 - aks
 - github
 - acr
-- lol
+- lol2
 description: "Demo application for the 'Create a Deployment Pipeline with AKS and Github Actions' learn module"
 urlFragment: "aks-deployment-pipeline-github-actions-demo"
 ---
