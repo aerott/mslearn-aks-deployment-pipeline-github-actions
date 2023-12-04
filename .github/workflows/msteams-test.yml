@@ -16,7 +16,8 @@ jobs:
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          #ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          ms-teams-webhook-uri: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
           notification-summary: Greeting from Github Action! &#x1F60A​​ &#x1F6A2​​ &#x2705;
           notification-color: 28a745
           timezone: Europe/Warsaw
