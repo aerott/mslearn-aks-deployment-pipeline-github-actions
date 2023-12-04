@@ -9,34 +9,15 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
-      
+      - uses: actions/checkout@v4
+
       - name: 📣 Send teams notification
-        uses: simbo/msteams-message-card-action@latest
+        uses: skitionek/notify-microsoft-teams@master
         with:
-          webhook: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
-          title: MyNotification! >:)
-          message: <p>This is my <strong>awesome message!</strong></p>
-          color: ff69b4
-          buttons: |
-            Click here! https://github.com/aerott/mslearn-aks-deployment-pipeline-github-actions
-            Or here… https://github.com/aerrot
-          sections: |
-            -
-              activityTitle: David Claux
-              activitySubtitle: 9/13/2016, 3:34pm
-              activityImage: https://connectorsdemo.azurewebsites.net/images/MSC12_Oscar_002.jpg
-              facts:
-                -
-                  name: "Board:"
-                  value: Name of board
-                -
-                  name: "List:"
-                  value: Name of list
-                -
-                  name: "Assigned to:"
-                  value: (none)
-                -
-                  name: "Due date:"
-                  value: (none)
-              text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          webhook_url: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
+          raw: >-
+            {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "title": "No ${variables} avaliable in here"
+            }
