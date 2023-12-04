@@ -9,13 +9,15 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
+        run: | 
+          echo "$GITHUB_CONTEXT"
+          echo tag_name: ${{ github.ref }}
+          echo tag_name number: ${GITHUB_REF##*/}
 
       - name: Send message to ms teams
         uses: rfuehrer/actions.webhook-to-ms-teams@1.0
