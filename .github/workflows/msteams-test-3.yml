@@ -15,9 +15,4 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         with:
           webhook_url: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
-          raw: >-
-            {
-              "@type": "MessageCard",
-              "@context": "http://schema.org/extensions",
-              "title": "No avaliable in here"
-            }
+          overwrite: "{title: `Overwrote title in ${workflow_link}`}"
