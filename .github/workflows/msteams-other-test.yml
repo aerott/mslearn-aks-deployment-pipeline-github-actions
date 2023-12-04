@@ -18,8 +18,8 @@ jobs:
           LAST_COMMIT_HASH=$(git rev-parse HEAD)
           COMMIT_CHANGES=$(git log -1 --pretty=format:"%s" $LAST_COMMIT_HASH)
           COMMIT_LINK="https://github.com/${{ github.repository }}/commit/${LAST_COMMIT_HASH}"
-          echo "::set-output name=commit_changes::$COMMIT_CHANGES"
-          echo "::set-output name=commit_link::$COMMIT_LINK"
+          echo "commit_changes=${COMMIT_CHANGES}" >> $GITHUB_OUTPUT
+          echo "commit_link=${COMMIT_LINK}" >> $GITHUB_OUTPUT
 
       - name: Display Last Commit Changes
         run: |
@@ -35,6 +35,12 @@ jobs:
           echo tag_name number: ${GITHUB_REF##*/}
           echo "Job URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
+      - name: Send notification to MS Teams channel
+        uses: rfuehrer/actions.webhook-to-ms-teams@1.0
+        with:
+          webhook: https://shockitsoft.webhook.office.com/webhookb2/1b531eb4-02eb-49f5-8b39-f99930a70861@3fda335c-e186-4ee4-94ed-15774c335171/IncomingWebhook/ae7c66150c914706b6e14ec8411709e1/7a8908b8-d686-4b88-88fd-8fa991aeec38
+          message: '<h1>&#x1F6A2;${{github.workflow}} has been finished successfully! &#x2705; &#x1F60A;</h1><br><b>Repository</b>: <a href=${{github.event.repository.html_url}}>${{github.repository}}</a><br>Branch: <b>${GITHUB_REF##*/}</b><br>ImageTag: <b>${{ github.ref }}</b><br><br>Commit changes name: ${{ steps.commit_changes.outputs.commit_changes }}<br>View commit changes: <a href=${{ steps.commit_changes.outputs.commit_link }}>${{ steps.commit_changes.outputs.commit_link }}</a><br><br>Workflow job: <a href=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}>https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</a><br><br><b>Stay tuned!</b><br>'
+      
       #- name: Send message to ms teams
       #  uses: rfuehrer/actions.webhook-to-ms-teams@1.0
       #  with:
