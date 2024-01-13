@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Let's gooo! ..."
+
 echo "Defining variables..."
 export RESOURCE_GROUP_NAME=mslearn-gh-pipelines-$RANDOM
 export AKS_NAME=contoso-video
