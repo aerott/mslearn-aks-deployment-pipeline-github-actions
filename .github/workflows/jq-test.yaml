@@ -1,0 +1,38 @@
+
+name: jq Test
+
+on:
+  workflow_dispatch
+
+env:
+  TAG_TEST:         1.0.2
+
+  
+jobs:
+  step1:
+    runs-on: ubuntu-22.04
+    
+    outputs:
+      dotnet_version: ${{ steps.prep.outputs.dotnet_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Prepare
+        id: prep
+        run: |
+          DOTNET_VERSION=`curl -s https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json | jq -r '.["latest-release"]'`
+          echo ::set-output name=tags::${{ env.TAG_TEST }}
+          echo "dotnet_version=${DOTNET_VERSION}" >> $GITHUB_OUTPUT
+  step2:
+    runs-on: ubuntu-22.04
+    needs: build
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test variable from other job
+        run: |
+          echo ${{needs.step1.outputs.dotnet_version}}
+      
+      
