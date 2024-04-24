@@ -4,10 +4,6 @@ name: jq Test
 on:
   workflow_dispatch
 
-env:
-  TAG_TEST:         1.0.2
-
-  
 jobs:
   step1:
     runs-on: ubuntu-22.04
@@ -26,7 +22,7 @@ jobs:
           echo "dotnet_version=${DOTNET_VERSION}" >> $GITHUB_OUTPUT
   step2:
     runs-on: ubuntu-22.04
-    needs: build
+    needs: step1
     
     steps:
       - uses: actions/checkout@v4
