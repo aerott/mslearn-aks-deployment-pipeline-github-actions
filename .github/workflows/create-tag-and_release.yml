@@ -38,10 +38,16 @@ jobs:
 
 
       - name: Create Release
-        run: |
-          gh release create "Release ${{ github.event.inputs.release_date }}" --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TAG: ${{ github.event.inputs.release_date }}
+          TITLE: "Release ${{ github.event.inputs.release_date }}"
+        run: |
+          gh release create "$GIT_TAG" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="$TITLE" \
+              --generate-notes
+        
     
       #- name: Create GitHub Release
       #  id: create_release
