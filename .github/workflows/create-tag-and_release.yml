@@ -36,12 +36,19 @@ jobs:
           git tag "$RELEASE_DATE"
           git push origin "$RELEASE_DATE"
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+
+      - name: Create Release
+        run: |
+          gh release create "Release ${{ github.event.inputs.release_date }}" --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.release_date }}
-          release_name: "Release ${{ github.event.inputs.release_date }}"
-          #body: "Release created on ${{ github.event.inputs.release_date }}"
+    
+      #- name: Create GitHub Release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    tag_name: ${{ github.event.inputs.release_date }}
+      #    release_name: "Release ${{ github.event.inputs.release_date }}"
+      #    #body: "Release created on ${{ github.event.inputs.release_date }}"
