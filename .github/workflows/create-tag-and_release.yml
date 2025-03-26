@@ -1,0 +1,47 @@
+name: Dotnet Build and Create Release (example)
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_date:
+        description: 'Release Date (format: YYYY-MM-DD)'
+        required: true
+        default: '2025-03-26'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      #- name: Setup .NET
+      #  uses: actions/setup-dotnet@v3
+      #  with:
+      #    dotnet-version: '6.0.x'
+
+      #- name: Restore dependencies
+      #  run: dotnet restore
+
+      #- name: Build project
+      #  run: dotnet build --configuration Release
+
+      - name: Create Git Tag
+        env:
+          RELEASE_DATE: ${{ github.event.inputs.release_date }}
+        run: |
+          echo "Creating tag: $RELEASE_DATE"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git tag "$RELEASE_DATE"
+          git push origin "$RELEASE_DATE"
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.release_date }}
+          release_name: "Release ${{ github.event.inputs.release_date }}"
+          body: "Release created on ${{ github.event.inputs.release_date }}"
