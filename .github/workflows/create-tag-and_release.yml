@@ -44,4 +44,5 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.release_date }}
           release_name: "Release ${{ github.event.inputs.release_date }}"
-          body: "Release created on ${{ github.event.inputs.release_date }}"
+          generate_release_notes: true
+          #body: "Release created on ${{ github.event.inputs.release_date }}"
