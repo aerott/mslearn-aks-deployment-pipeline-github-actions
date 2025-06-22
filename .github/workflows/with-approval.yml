@@ -1,4 +1,4 @@
-name: Manual Workflow Approval (example)
+name: Manual Workflow Approval (by Issue section)
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       release_date:
         description: 'Release Date (format: YYYY-MM-DD)'
         required: true
-        default: '2025-03-26'
+        default: '2025-06-22'
 
 jobs:
   init_job:
@@ -50,8 +50,8 @@ jobs:
           secret: ${{ github.TOKEN }}
           approvers: aerott
           minimum-approvals: 1
-          issue-title: "Approval Title"
-          issue-body: "Approval Body"
+          issue-title: "Approval for release ${{ github.event.inputs.release_date }}"
+          issue-body: "Please approve the release scheduled for ${{ github.event.inputs.release_date }}."
           exclude-workflow-initiator-as-approver: false
           fail-on-denial: true
           #additional-approved-words: ''
