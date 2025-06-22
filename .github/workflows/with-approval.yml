@@ -1,0 +1,80 @@
+name: Manual Workflow Approval (example)
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_date:
+        description: 'Release Date (format: YYYY-MM-DD)'
+        required: true
+        default: '2025-03-26'
+
+jobs:
+  init_job:
+    runs-on: ubuntu-latest
+    outputs:
+      choosed_branch: ${{ steps.setvars.outputs.choosed_branch }}
+      confirm: ${{ steps.setvars.outputs.confirm }}
+      
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          BRANCH=${GITHUB_REF##*/}
+          if [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "develop" ]]; 
+          then
+            echo "1"
+            echo "::set-output name=confirm::val_develop"
+            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"   
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "main" ]]; 
+          then
+            echo "::set-output name=confirm::val_main" 
+            echo "::set-output name=choosed_branch::${GITHUB_REF##*/}"
+          elif [[ $BRANCH == "${{ github.event.inputs.confirm }}" && "${{ github.event.inputs.confirm }}" == "stage" ]]; 
+          then
+            echo "::set-output name=confirm::val_stage"
+          else
+            echo "::set-output name=confirm::fck_it"
+          fi
+          echo "bbb: $BRANCH"
+          echo "aaa: ${{ github.event.inputs.confirm }}"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: aerott,someuser
+          minimum-approvals: 1
+          issue-title: "Approval Title"
+          issue-body: "Approval Body"
+          exclude-workflow-initiator-as-approver: false
+          fail-on-denial: true
+          #additional-approved-words: ''
+          #additional-denied-words: ''
+
+      - name: Create Git Tag
+        env:
+          RELEASE_DATE: ${{ github.event.inputs.release_date }}
+        run: |
+          echo "Creating tag: $RELEASE_DATE"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git tag "$RELEASE_DATE"
+          git push origin "$RELEASE_DATE"
+
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TAG: ${{ github.event.inputs.release_date }}
+          TITLE: "Release ${{ github.event.inputs.release_date }}"
+        run: |
+          gh release create "$GIT_TAG" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="$TITLE" \
+              --generate-notes
