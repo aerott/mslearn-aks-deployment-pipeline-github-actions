@@ -48,7 +48,7 @@ jobs:
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ github.TOKEN }}
-          approvers: aerott,someuser
+          approvers: aerott
           minimum-approvals: 1
           issue-title: "Approval Title"
           issue-body: "Approval Body"
